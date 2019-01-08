@@ -158,7 +158,7 @@ app.get('/abort', function(req, res) {
   setTimeout(function() {
     clientRequest.abort();
     res.sendStatus(200);
-  }, 1500);
+  }, 1500); // changing this to 500 seemed to do it?!?!
 });
 
 app.get('/request-malformed-url', function(req, res) {
