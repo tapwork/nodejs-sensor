@@ -19,7 +19,10 @@ var filterParams = urlUtil.filterParams;
 
 var isActive = false;
 
+console.log('XXX httpClient instrumentation/loading');
+
 exports.init = function() {
+  console.log('XXX httpClient instrumentation/init');
   instrument(coreHttpModule);
 
   // Up until Node 8, the core https module uses the http module internally, so https calls are traced automatically
@@ -72,6 +75,7 @@ function instrument(coreModule) {
       callbackIndex = 2;
     }
 
+    console.log('XXX httpClient instrumentation/tracing check', isActive, cls.isTracing());
     if (!isActive || !cls.isTracing()) {
       var traceLevelHeaderHasBeenAdded = false;
       if (cls.tracingLevel()) {
@@ -87,6 +91,7 @@ function instrument(coreModule) {
     var parentSpan = cls.getCurrentSpan();
 
     if (cls.isExitSpan(parentSpan)) {
+      console.log('XXX httpClient instrumentation/parent is exit');
       if (cls.tracingSuppressed()) {
         traceLevelHeaderHasBeenAdded = tryToAddTraceLevelAddHeaderToOpts(options, '0');
       }
@@ -97,7 +102,9 @@ function instrument(coreModule) {
       return clientRequest;
     }
 
+    console.log('XXX httpClient instrumentation/starting span');
     cls.ns.run(function() {
+      console.log('XXX httpClient instrumentation/starting span/2');
       var span = cls.startSpan('node.http.client', cls.EXIT);
 
       var completeCallUrl;
@@ -129,6 +136,7 @@ function instrument(coreModule) {
         span.d = Date.now() - span.ts;
         span.error = res.statusCode >= 500;
         span.ec = span.error ? 1 : 0;
+        console.log('XXX httpClient instrumentation/transmitting span in callback');
         span.transmit();
 
         if (callback) {
@@ -157,6 +165,7 @@ function instrument(coreModule) {
         span.d = Date.now() - span.ts;
         span.error = true;
         span.ec = 1;
+        console.log('XXX httpClient instrumentation/transmitting span catch');
         span.transmit();
         throw e;
       }
@@ -224,10 +233,12 @@ function instrument(coreModule) {
 }
 
 exports.activate = function() {
+  console.log('XXX httpClient instrumentation/activate');
   isActive = true;
 };
 
 exports.deactivate = function() {
+  console.log('XXX httpClient instrumentation/deactivate');
   isActive = false;
 };
 

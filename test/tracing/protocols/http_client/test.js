@@ -31,13 +31,21 @@ describe.only('tracing/http client', function() {
     extraHeaders: ['fooBaR']
   });
 
-  describe('http', function() {
+  describe('http 1', function() {
     registerTests.call(this, false);
   });
 
-  describe('https', function() {
-    registerTests.call(this, true);
+  describe('http 2', function() {
+    registerTests.call(this, false);
   });
+
+  describe('http 3', function() {
+    registerTests.call(this, false);
+  });
+
+  // describe('https', function() {
+  //   registerTests.call(this, true);
+  // });
 });
 
 function registerTests(useHttps) {

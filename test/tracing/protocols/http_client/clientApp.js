@@ -52,22 +52,27 @@ app.get('/', function(req, res) {
 });
 
 app.get('/request-url-and-options', function(req, res) {
+  console.log('XXX making HTTP call');
   httpModule
     .request(createUrl(req, '/request-url-opts'), { rejectUnauthorized: false }, function() {
+      console.log('XXX HTTP call finished');
       return res.sendStatus(200);
     })
     .end();
 });
 
 app.get('/request-url-only', function(req, res) {
+  console.log('XXX making HTTP call');
   httpModule
     .request(createUrl(req, '/request-only-url'), function() {
+      console.log('XXX HTTP call finished');
       return res.sendStatus(200);
     })
     .end();
 });
 
 app.get('/request-options-only', function(req, res) {
+  console.log('XXX making HTTP call');
   httpModule
     .request(
       {
@@ -78,6 +83,7 @@ app.get('/request-options-only', function(req, res) {
         rejectUnauthorized: false
       },
       function() {
+        console.log('XXX HTTP call finished');
         return res.sendStatus(200);
       }
     )
@@ -85,6 +91,7 @@ app.get('/request-options-only', function(req, res) {
 });
 
 app.get('/request-options-only-null-headers', function(req, res) {
+  console.log('XXX making HTTP call');
   httpModule
     .request(
       {
@@ -96,6 +103,7 @@ app.get('/request-options-only-null-headers', function(req, res) {
         headers: null
       },
       function() {
+        console.log('XXX HTTP call finished');
         return res.sendStatus(200);
       }
     )
@@ -103,18 +111,23 @@ app.get('/request-options-only-null-headers', function(req, res) {
 });
 
 app.get('/get-url-and-options', function(req, res) {
+  console.log('XXX making HTTP call');
   httpModule.get(createUrl(req, '/get-url-opts'), { rejectUnauthorized: false }, function() {
+    console.log('XXX HTTP call finished');
     return res.sendStatus(200);
   });
 });
 
 app.get('/get-url-only', function(req, res) {
+  console.log('XXX making HTTP call');
   httpModule.get(createUrl(req, '/get-only-url'), function() {
+    console.log('XXX HTTP call finished');
     return res.sendStatus(200);
   });
 });
 
 app.get('/get-options-only', function(req, res) {
+  console.log('XXX making HTTP call');
   httpModule.get(
     {
       hostname: '127.0.0.1',
@@ -124,6 +137,7 @@ app.get('/get-options-only', function(req, res) {
       rejectUnauthorized: false
     },
     function() {
+      console.log('XXX HTTP call finished');
       return res.sendStatus(200);
     }
   );
@@ -137,14 +151,17 @@ app.get('/timeout', function(req, res) {
     strictSSL: false
   })
     .then(function() {
+      console.log('XXX HTTP call finished');
       res.sendStatus(200);
     })
-    .catch(function() {
+    .catch(function(e) {
+      console.log('XXX HTTP call finished with error', e);
       res.sendStatus(500);
     });
 });
 
 app.get('/abort', function(req, res) {
+  console.log('XXX making HTTP call');
   var clientRequest = httpModule.request({
     method: 'GET',
     hostname: '127.0.0.1',
@@ -163,17 +180,20 @@ app.get('/abort', function(req, res) {
 
 app.get('/request-malformed-url', function(req, res) {
   try {
+    console.log('XXX making HTTP call');
     httpModule
       .request(
         //
         'ha-te-te-peh://999.0.0.1:not-a-port/malformed-url', //
         { rejectUnauthorized: false }, //
         function() {
+          console.log('XXX HTTP call finished');
           console.log('This should not have happend!');
         }
       )
       .end();
   } catch (e) {
+    console.log('XXX making HTTP call');
     httpModule
       .request(
         {
@@ -184,6 +204,7 @@ app.get('/request-malformed-url', function(req, res) {
           rejectUnauthorized: false
         },
         function() {
+          console.log('XXX HTTP call finished');
           return res.sendStatus(200);
         }
       )
@@ -220,6 +241,7 @@ app.post('/upload-s3', function(req, res) {
 });
 
 app.put('/expect-continue', function(req, res) {
+  console.log('XXX making HTTP call');
   var continueRequest = httpModule.request(
     {
       hostname: '127.0.0.1',
@@ -234,6 +256,7 @@ app.put('/expect-continue', function(req, res) {
       }
     },
     function(response) {
+      console.log('XXX HTTP call finished');
       var responseString = '';
       response.on('data', function(chunk) {
         responseString += chunk;
