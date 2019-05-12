@@ -170,7 +170,7 @@ function copyBaggage(baggage) {
 }
 
 exports.init = function init(config, _processIdentityProvider) {
-  if (config.serviceName) {
+  if (typeof config.serviceName === 'string' && config.serviceName) {
     serviceName = config.serviceName;
   }
   processIdentityProvider = _processIdentityProvider;

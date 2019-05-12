@@ -36,6 +36,7 @@ exports.init = function(_config, _downstreamConnection, _processIdentityProvider
   config = _config;
   downstreamConnection = _downstreamConnection;
   processIdentityProvider = _processIdentityProvider;
+  setDefaults();
   if (config.reportUncaughtException) {
     if (!processIdentityProvider) {
       logger.warn('Reporting uncaught exceptions is enabled, but no process identity provider is available.');
@@ -47,6 +48,17 @@ exports.init = function(_config, _downstreamConnection, _processIdentityProvider
     }
   }
 };
+
+function setDefaults() {
+  if (config.tracing && config.tracing.stackTraceLength != null) {
+    stackTraceLength = config.tracing.stackTraceLength;
+  }
+  config.reportUncaughtException = config.reportUncaughtException === true;
+  // Make reportUncaughtException implies reportUnhandledPromiseRejections unless explicitly disabled.
+  if (config.reportUnhandledPromiseRejections == null) {
+    config.reportUnhandledPromiseRejections = config.reportUncaughtException;
+  }
+}
 
 exports.activate = function() {
   activateUncaughtExceptionHandling();

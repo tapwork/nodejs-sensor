@@ -1,5 +1,3 @@
-/* eslint-disable dot-notation */
-
 'use strict';
 
 var bunyan = require('bunyan');
@@ -37,12 +35,8 @@ exports.init = function(config, isReInit) {
       stream: bunyanToAgentStream,
       level: 'info'
     });
-    if (process.env['INSTANA_DEBUG'] || process.env['INSTANA_DEV']) {
-      parentLogger.level('debug');
-    } else if (config.level) {
+    if (config.level) {
       parentLogger.level(config.level);
-    } else if (process.env['INSTANA_LOG_LEVEL']) {
-      parentLogger.level(process.env['INSTANA_LOG_LEVEL'].toLowerCase());
     }
   }
 

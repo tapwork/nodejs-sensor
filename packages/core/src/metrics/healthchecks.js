@@ -21,7 +21,7 @@ requireHook.onModuleLoad('admin-plugin-healthcheck', function onAdminPluginHealt
 });
 
 exports.activate = function(config) {
-  timeBetweenHealthcheckCalls = config.metrics.timeBetweenHealthcheckCalls;
+  timeBetweenHealthcheckCalls = config.timeBetweenHealthcheckCalls || 3000;
 
   if (adminPluginHealthcheck != null) {
     gatherHealthcheckResults();
