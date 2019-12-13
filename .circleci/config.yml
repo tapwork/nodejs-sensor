@@ -1,4 +1,3 @@
-#
 # See https://circleci.com/docs/2.0/language-javascript/ for docs.
 
 version: 2
@@ -150,93 +149,15 @@ nats-streaming: &nats-streaming
       - 8223:8223
 
 jobs:
-  "node-13":
-    docker:
-      - image: circleci/node:13
-      - <<: *zookeeper
-      - <<: *elasticsearch
-      - <<: *mongo
-      - <<: *redis
-      - <<: *kafka
-      - <<: *mysql
-      - <<: *postgres
-      - <<: *mssql
-      - <<: *rabbitmq
-      - <<: *nats
-      - <<: *nats-streaming
-    <<: *shared
-
-  "node-12":
-    docker:
-      - image: circleci/node:12
-      - <<: *zookeeper
-      - <<: *elasticsearch
-      - <<: *mongo
-      - <<: *redis
-      - <<: *kafka
-      - <<: *mysql
-      - <<: *postgres
-      - <<: *mssql
-      - <<: *rabbitmq
-      - <<: *nats
-      - <<: *nats-streaming
-    <<: *shared
-
-  "node-10":
-    docker:
-      - image: circleci/node:10
-      - <<: *zookeeper
-      - <<: *elasticsearch
-      - <<: *mongo
-      - <<: *redis
-      - <<: *kafka
-      - <<: *mysql
-      - <<: *postgres
-      - <<: *mssql
-      - <<: *rabbitmq
-      - <<: *nats
-      - <<: *nats-streaming
-    <<: *shared
-
   "node-8":
     docker:
       - image: circleci/node:8
-      - <<: *zookeeper
-      - <<: *elasticsearch
-      - <<: *mongo
-      - <<: *redis
-      - <<: *kafka
-      - <<: *mysql
-      - <<: *postgres
       - <<: *mssql
-      - <<: *rabbitmq
-      - <<: *nats
-      - <<: *nats-streaming
-    <<: *shared
-
-  "node-6":
-    docker:
-      - image: circleci/node:6
-      - <<: *zookeeper
-      - <<: *elasticsearch
-      - <<: *mongo
-      - <<: *redis
-      - <<: *kafka
-      - <<: *mysql
-      - <<: *postgres
-      - <<: *mssql
-      - <<: *rabbitmq
-      - <<: *nats
-      - <<: *nats-streaming
     <<: *shared
 
 workflows:
   version: 2
   build:
     jobs:
-      - "node-13"
-      - "node-12"
-      - "node-10"
       - "node-8"
-      - "node-6"
 
