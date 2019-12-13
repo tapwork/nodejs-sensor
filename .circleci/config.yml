@@ -152,7 +152,17 @@ jobs:
   "node-8":
     docker:
       - image: circleci/node:8
+      - <<: *zookeeper
+      - <<: *elasticsearch
+      - <<: *mongo
+      - <<: *redis
+      - <<: *kafka
+      - <<: *mysql
+      - <<: *postgres
       - <<: *mssql
+      - <<: *rabbitmq
+      - <<: *nats
+      - <<: *nats-streaming
     <<: *shared
 
 workflows:
