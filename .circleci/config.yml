@@ -152,7 +152,6 @@ jobs:
       - <<: *redis
       - <<: *kafka
       - <<: *mysql
-      - <<: *postgres
       - <<: *mssql
     <<: *shared
 
