@@ -154,9 +154,6 @@ jobs:
       - <<: *mysql
       - <<: *postgres
       - <<: *mssql
-      - <<: *rabbitmq
-      - <<: *nats
-      - <<: *nats-streaming
     <<: *shared
 
 workflows:
