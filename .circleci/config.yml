@@ -150,6 +150,9 @@ jobs:
       - <<: *elasticsearch
       - <<: *mongo
       - <<: *redis
+      - <<: *kafka
+      - <<: *mysql
+      - <<: *postgres
       - <<: *mssql
     <<: *shared
 
