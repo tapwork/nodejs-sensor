@@ -54,12 +54,6 @@ shared: &shared
     - run: npm install
     - run: ls -la packages/collector/node_modules
 
-    # When running tests in Node.js 8, we pin grpc to exactly 1.10.1.
-    # For more recent Node.js versions (>= 10) we use the latest 1.x as stated in package.json. We can't use grcp@1.10.1
-    # in Node.js 10 since it fails to build under Node.js >= 10. We still want to explicitly test the combination of
-    # Node.js 8 with grpc@1.10.1 for reasons.
-    - run: '([[ $(node -v) =~ ^v8.*$ ]] && npm install grpc@1.10.1) || true'
-
     - save_cache:
         paths:
           - node_modules
