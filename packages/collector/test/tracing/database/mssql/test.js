@@ -8,7 +8,7 @@ const supportedVersion = require('@instana/core').tracing.supportedVersion;
 const config = require('../../../config');
 const utils = require('../../../utils');
 
-describe('tracing/mssql', function() {
+describe.only('tracing/mssql', function() {
   if (!supportedVersion(process.versions.node)) {
     return;
   }
@@ -22,7 +22,7 @@ describe('tracing/mssql', function() {
   });
   appControls.registerTestHooks();
 
-  it('must trace dummy select', () =>
+  it.only('must trace dummy select', () =>
     appControls
       .sendRequest({
         method: 'GET',

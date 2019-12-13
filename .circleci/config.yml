@@ -1,3 +1,4 @@
+#
 # See https://circleci.com/docs/2.0/language-javascript/ for docs.
 
 version: 2
@@ -86,7 +87,7 @@ shared: &shared
     - run: '([[ $(node -v) =~ ^v12.*$ ]] && npm run audit) || [[ ! $(node -v) =~ ^v12.*$ ]]'
     # Run linting first, we don't want to wait ages for the test suite to finish only to end with the CI job with a
     # linting error.
-    - run: npm run lint
+    # - run: npm run lint
     - run: npm test
 
     - save_cache:
