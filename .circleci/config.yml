@@ -146,6 +146,10 @@ jobs:
   "node-8":
     docker:
       - image: circleci/node:8
+      - <<: *zookeeper
+      - <<: *elasticsearch
+      - <<: *mongo
+      - <<: *redis
       - <<: *mssql
     <<: *shared
 
