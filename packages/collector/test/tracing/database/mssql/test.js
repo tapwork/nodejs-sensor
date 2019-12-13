@@ -22,7 +22,7 @@ describe.only('tracing/mssql', function() {
   });
   appControls.registerTestHooks();
 
-  it.only('must trace dummy select', () =>
+  it('must trace dummy select', () =>
     appControls
       .sendRequest({
         method: 'GET',
