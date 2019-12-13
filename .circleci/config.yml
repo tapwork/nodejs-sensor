@@ -151,7 +151,6 @@ jobs:
       - <<: *mongo
       - <<: *redis
       - <<: *kafka
-      - <<: *mysql
       - <<: *mssql
     <<: *shared
 
