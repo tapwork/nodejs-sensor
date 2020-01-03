@@ -100,6 +100,7 @@ function send(resourcePath, payload, callback) {
   }
 
   const req = https.request(options, res => {
+    console.log('INSTANA POST REQ', Date.now() - process.handlerFinished);
     const unexpectedStatus = res.statusCode < 200 || res.statusCode >= 300;
     let data = '';
     res.setEncoding('utf8');
@@ -134,5 +135,6 @@ function send(resourcePath, payload, callback) {
   });
 
   req.write(payload);
+  console.log('INSTANA PRE REQ', Date.now() - process.handlerFinished);
   req.end();
 }
